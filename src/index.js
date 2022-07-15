@@ -1,7 +1,7 @@
 import express  from 'express';
 //const express = require('express');
 //const {Pool}= require('pg');
-//import {Pool} from 'pg'
+//import pg from 'pg';
 import pg from 'pg';
 //const chalk = require('chalk');
 import chalk from 'chalk';
@@ -9,6 +9,7 @@ import chalk from 'chalk';
 import moment from 'moment'
 import {dirname, join} from 'path';
 import { fileURLToPath } from 'url';
+import morgan from 'morgan';
 
 const configuracion={
   user: "postgres",
@@ -16,19 +17,22 @@ const configuracion={
   database: "bancolosar",
   password:"1234"
 }
-const pool= new Pool(configuracion);
+//const pool= new Pool(configuracion);
 
 //iniciar express 
+const app = express();
 
-const app = express()
+const __dirname = dirname(fileURLToPath(import.meta.url));
+console.log(__dirname, 'views');//directorio donde estan las vistas
+// settings
+app.set("views", join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(morgan("dev"));
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-console.log(__dirmane);
-//app.set('views, join(__dirname,'views'))
-app.set('view engine', 'ejs')
+app.get('/', (req, res) => res.render("index",{title:"First web node"}))
 
-
-app.get('/', (req, res) => res.renden('index'))
-
+app.set("port", process.env.PORT || 3000);
 const port = 3000
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+

@@ -21,8 +21,9 @@ const app = express()
 const port = 3000
 app.use(morgan("dev"));
 //ruta  inicial
+//ruta  inicial
 app.get('/', function(req, res) {
-    res.sendFile(__dirname+"/src/views/index.html");
+    res.sendFile(__dirname+"./html/index.html");
 })
 
 //ruta get usuarios

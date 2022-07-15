@@ -191,6 +191,7 @@
       try {
         const response = await fetch("http://localhost:3000/usuario", {
           method: "post",
+          headers:{"Content-type":"application/json"},
           body: JSON.stringify({
             nombre,
             balance,
@@ -216,6 +217,7 @@
       try {
         const response = await fetch("http://localhost:3000/transferencia", {
           method: "post",
+          headers:{"Content-type":"application/json"},
           body: JSON.stringify({
             emisor,
             receptor,

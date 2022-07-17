@@ -18,12 +18,18 @@ const pool= new Pool(configuracion);
 
 //4.1 - inicializar express
 const app = express()
-const port = 3000
 app.use(morgan("dev"));
 //ruta  inicial
-app.get('/', function(req, res) {
-    res.sendFile(__dirname+"/src/views/index.html");
-})
+
+app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'))
+//app.get('/', function(req, res) {
+   //res.sendFile(__dirname+"/html/index.html");
+   // res.sendFile(__dirname + '/index.html');
+    
+    
+//})
+const port = 3000
+
 
 //ruta get usuarios
 app.get('/usuarios',async function(req,res){
@@ -79,6 +85,26 @@ app.get('/transferencias',async function(req,res){
     }
 })
 
+
+app.delete('',function (req,res) {
+    //con req.query buscar el id y usarlo para eliminar
+    //no se pueden eliminar usuario que tengan tansferencias asociadas.
+})
+
+app.put('',function(req,res){
+    //para editar (update) un usuario
+    //id viene del query
+    //los nuevos datos vienen en el body
+})
+
+app.post('',function(req,res){
+    //datos vienen en el body
+    //para insertar una transferencia
+    //OJO: no se peude transferir mas dinero que el que le queda al usuario
+    //OJO: cuando transfieran dinero, se debe descontar del saldo del emisor
+    //OJO: cuando se transfiera dinero, se debe sumar al receptor.
+    //OJO: usar trasnsaccion para ejecutar ambas querys
+})
 
 
 //iniciar servidor
